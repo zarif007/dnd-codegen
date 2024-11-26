@@ -1,0 +1,14 @@
+.App {
+  font-family: sans-serif;
+}
+.ant-tabs {
+  margin: 0 1em;
+}
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.ant-tabs .ant-tabs-nav {
+  margin: 0;
+}

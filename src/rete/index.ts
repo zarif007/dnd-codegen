@@ -17,7 +17,7 @@ const factory = {
 const query =
   typeof location !== "undefined" && new URLSearchParams(location.search);
 const name = ((query && query.get("template")) ||
-  "codegen") as keyof typeof factory;
+  "default") as keyof typeof factory;
 
 const create = factory[name];
 
