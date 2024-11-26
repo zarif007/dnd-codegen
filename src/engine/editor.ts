@@ -16,6 +16,7 @@ import {
 } from "rete-auto-arrange-plugin";
 import {
   AddNode,
+  CompareNode,
   NumberNode,
   InputNode,
   OutputNode,
@@ -41,12 +42,19 @@ const modulesData: { [key in string]: any } = {
   double: doubleModule,
 };
 
-type Nodes = AddNode | NumberNode | InputNode | OutputNode | ModuleNode;
+type Nodes =
+  | AddNode
+  | NumberNode
+  | InputNode
+  | OutputNode
+  | ModuleNode
+  | CompareNode;
 export type Schemes = GetSchemes<
   Nodes,
   | Connection<NumberNode, AddNode>
   | Connection<AddNode, AddNode>
   | Connection<InputNode, OutputNode>
+  | Connection<NumberNode, CompareNode>
 >;
 type AreaExtra = ReactArea2D<Schemes> | ContextMenuExtra<Schemes>;
 
@@ -121,6 +129,7 @@ export async function createEditor(container: HTMLElement) {
     items: ContextMenuPresets.classic.setup([
       ["Number", () => createNode(context, "Number", { value: 0 })],
       ["Add", () => createNode(context, "Add", {})],
+      ["Compare", () => createNode(context, "Compare", {})],
       ["Input", () => createNode(context, "Input", { key: "key" })],
       ["Output", () => createNode(context, "Output", { key: "key" })],
       ["Module", () => createNode(context, "Module", { name: "" })],

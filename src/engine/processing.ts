@@ -3,6 +3,7 @@ import { AreaPlugin } from "rete-area-plugin";
 import { DataflowEngine } from "rete-engine";
 import { Schemes } from "./modules";
 import { AddNode } from "./nodes/add";
+import { CompareNode } from "./nodes";
 
 export function createEngine<S extends Schemes>(
   editor: NodeEditor<S>,
@@ -13,7 +14,7 @@ export function createEngine<S extends Schemes>(
   async function process() {
     dataflow.reset();
     for (const node of editor.getNodes()) {
-      if (node instanceof AddNode) {
+      if (node instanceof AddNode || node instanceof CompareNode) {
         try {
           await dataflow.fetch(node.id);
 

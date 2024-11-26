@@ -1,10 +1,11 @@
 import { Connection, Context } from "./editor";
 import {
   AddNode,
+  CompareNode,
   InputNode,
   ModuleNode,
   NumberNode,
-  OutputNode
+  OutputNode,
 } from "./nodes";
 import { removeConnections } from "./utils";
 
@@ -15,6 +16,7 @@ export async function createNode(
 ) {
   if (name === "Number") return new NumberNode(data.value, process);
   if (name === "Add") return new AddNode(process, data);
+  if (name === "Compare") return new CompareNode(process, data);
   if (name === "Input") return new InputNode(data.key);
   if (name === "Output") return new OutputNode(data.key);
   if (name === "Module") {
@@ -72,7 +74,7 @@ export function exportEditor(context: Context) {
     nodes.push({
       id: n.id,
       name: n.label,
-      data: n.serialize()
+      data: n.serialize(),
     });
   }
   for (const c of context.editor.getConnections()) {
@@ -80,12 +82,12 @@ export function exportEditor(context: Context) {
       source: c.source,
       sourceOutput: c.sourceOutput,
       target: c.target,
-      targetInput: c.targetInput
+      targetInput: c.targetInput,
     });
   }
 
   return {
     nodes,
-    connections
+    connections,
   };
 }
